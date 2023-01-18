@@ -128,12 +128,8 @@ long LinuxParser::ActiveJiffies(int pid) {
   long int idx15;
   long int idx16;
   long int valtmp;
-  //std::ifstream filestream(kProcDirectory + to_string(pid) + "/" + kStatFilename);
-  std::ifstream filestream("/proc/1/stat");
+  std::ifstream filestream(kProcDirectory + to_string(pid) + "/" + kStatFilename);
   if (filestream.is_open()) {
-
-      idx13 = 22;
-
       std::getline(filestream, line);
       std::istringstream linestream(line);
       for (int i = 0; i < 17; i++) {
@@ -149,10 +145,7 @@ long LinuxParser::ActiveJiffies(int pid) {
       }
   }
 
-  //return idx13 + idx14+ idx15 + idx16; 
-  return idx13;
-  //return 2 + 1 + 57 + 15;
-  
+  return idx13 + idx14+ idx15 + idx16; 
 }
 
 // TODO: Read and return the number of active jiffies for the system
