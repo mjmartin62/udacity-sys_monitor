@@ -27,10 +27,10 @@ float Process::CpuUtilization() const {
     float hertz = 100;
     
     
-    return active_tics;
+    //return active_tics;
     //return 22;
     //return (((float)active_tics) / hertz) ;
-    //return (((float)active_tics) / hertz) / ((float)process_time);
+    return (((float)active_tics) / hertz) / ((float)process_time);
 }
 
 // TODO: Return the command that generated this process
@@ -57,6 +57,6 @@ long int Process::UpTime() {
 // REMOVE: [[maybe_unused]] once you define the function
 bool Process::operator<(Process const& a) const {
     bool test;
-    test = a.CpuUtilization() < this->CpuUtilization();  
+    test = a.CpuUtilization() < this->CpuUtilization();
     return test; 
 }

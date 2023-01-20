@@ -123,29 +123,15 @@ long LinuxParser::Jiffies() {
 // REMOVE: [[maybe_unused]] once you define the function
 long LinuxParser::ActiveJiffies(int pid) { 
   string line;
-  long int idx13;
-  long int idx14;
-  long int idx15;
-  long int idx16;
-  long int valtmp;
-  std::ifstream filestream(kProcDirectory + to_string(pid) + "/" + kStatFilename);
+  string idx0, idx1, idx2, idx3, idx4, idx5, idx6, idx7, idx8, idx9, idx10, idx11, idx12, idx13, idx14, idx15, idx16;
+  string processID = to_string(pid);
+  std::ifstream filestream(kProcDirectory + processID + "/" + kStatFilename);
   if (filestream.is_open()) {
       std::getline(filestream, line);
       std::istringstream linestream(line);
-      for (int i = 0; i < 17; i++) {
-        linestream >> valtmp;
-        if (i == 13) {
-          idx13 = valtmp; }
-        if (i == 14) {
-          idx14 = valtmp; }
-        if (i == 15) {
-          idx15 = valtmp; }
-        if (i == 16) {
-          idx16 = valtmp; }
-      }
+      linestream >> idx0 >> idx1 >> idx2 >> idx3 >> idx4 >> idx5 >> idx6 >> idx7 >> idx8 >> idx9 >> idx10 >> idx11 >> idx12 >> idx13 >> idx14 >> idx15 >> idx16;
   }
-
-  return idx13 + idx14+ idx15 + idx16; 
+  return stol(idx13) + stol(idx14) + stol(idx15) + stol(idx16); 
 }
 
 // TODO: Read and return the number of active jiffies for the system
@@ -299,19 +285,19 @@ string LinuxParser::User(int pid) {
 long LinuxParser::UpTime(int pid) {
   // Retrieve startime of process
   string line;
-  float idx21;
-  std::ifstream filestream(kProcDirectory + to_string(pid) + "/" + kStatFilename);
+  string idx0, idx1, idx2, idx3, idx4, idx5, idx6, idx7, idx8, idx9, idx10, idx11, idx12, idx13, idx14, idx15, idx16, idx17, idx18, idx19, idx20, idx21;
+  string processID = to_string(pid);
+  std::ifstream filestream(kProcDirectory + processID + "/" + kStatFilename);
   if (filestream.is_open()) {
       std::getline(filestream, line);
       std::istringstream linestream(line);
-      for (int i = 0; i < 22; i++) {
-        linestream >> idx21;
-      }
+      linestream >> idx0 >> idx1 >> idx2 >> idx3 >> idx4 >> idx5 >> idx6 >> idx7 >> idx8 >> idx9 >> idx10 >> idx11 >> idx12 >> idx13 >> idx14 >> idx15 >> idx16 >> idx17 >> idx18 >> idx19 >> idx20 >> idx21;
   }
-
+  // extract the process time tics
+  float proc_tics = stof(idx21);
   // Call system uptime in seconds
   long int system_uptime = UpTime();
   // Calculate and return uptime of process in seconds
   float hertz = 100;
-  return system_uptime - (long int)(idx21 / hertz); 
+  return system_uptime - (long int)(proc_tics / hertz); 
 }

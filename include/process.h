@@ -23,7 +23,7 @@ class Process {
   // TODO: Declare any necessary private members
  private:
   int processID_;
-  //const float CpuUtilization_ = {};
+  
 };
 
 #endif
